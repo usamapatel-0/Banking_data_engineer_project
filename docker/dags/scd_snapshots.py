@@ -12,21 +12,27 @@ default_args = {
 with DAG(
     dag_id="SCD2_snapshots",
     default_args=default_args,
-    description="Run dbt snapshots for SCD2",
-    schedule_interval="@daily",     # or "@hourly" depending on your needs
+    description="Run dbt models and SCD2 snapshots",
+    schedule_interval="@daily",
     start_date=datetime(2025, 9, 1),
     catchup=False,
     tags=["dbt", "snapshots"],
 ) as dag:
 
-    dbt_snapshot = BashOperator(
-        task_id="dbt_snapshot",
-        bash_command="cd /opt/airflow/banking_dbt && dbt snapshot --profiles-dir /home/airflow/.dbt"
-        )
-    dbt_run_marts = BashOperator(
-        task_id="dbt_run_marts",
-        bash_command="cd /opt/airflow/banking_dbt && dbt run --select marts --profiles-dir /home/airflow/.dbt"
+    dbt_run = BashOperator(
+        task_id="dbt_run",
+        bash_command=(
+            "cd /opt/airflow/banking_dbt && "
+            "dbt run --profiles-dir /home/airflow/.dbt"
+        ),
     )
 
+    dbt_snapshot = BashOperator(
+        task_id="dbt_snapshot",
+        bash_command=(
+            "cd /opt/airflow/banking_dbt && "
+            "dbt snapshot --profiles-dir /home/airflow/.dbt"
+        ),
+    )
 
-    dbt_snapshot
+    dbt_run >> dbt_snapshot
