@@ -1,0 +1,24 @@
+# Environment / secrets
+.env
+*.env
+
+# dbt
+target/
+dbt_packages/
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Local files
+*.log
+*.parquet
+*.csv
+
+# OS
+.DS_Store
+Thumbs.db
