@@ -368,6 +368,8 @@ This ensures that the dbt models are executed before the historical snapshots ar
 
 Snowflake is used as the cloud data warehouse.
 <img width="1917" height="1031" alt="snowflake" src="https://github.com/user-attachments/assets/b81118f1-34c5-4fc8-9177-8281517bdf9e" />
+<img width="1917" height="1020" alt="DIM_CUSTOMERS" src="https://github.com/user-attachments/assets/7b71539d-5b05-4c2f-8a94-fa116703b131" />
+
 
 
 The pipeline uses Snowflake for:
